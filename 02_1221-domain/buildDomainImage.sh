@@ -1,0 +1,1 @@
+docker build -t clou/wls:12.2.1-domain --build-arg ADMIN_PASSWORD=welcome1 .
