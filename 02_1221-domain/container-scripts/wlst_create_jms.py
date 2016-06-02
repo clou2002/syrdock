@@ -23,9 +23,9 @@ admin_pass   = os.environ.get("ADMIN_PASSWORD")
 cluster_name = os.environ.get("CLUSTER_NAME", "DockerCluster")
 domain_path  = '/u01/oracle/user_projects/domains/' + domain_name
 
-DB_USER      = os.environ.get("DB_USER","oracle_db_user")
-DB_USERPWD   = os.environ.get("DB_USERPWD","oracle_db_pwd")
-DB_JDBC_URL  = os.environ.get("DB_JDBC_URL","jdbc:oracle:thin:@//host:1521/service_name")
+DB_USER      = os.environ.get("DB_USER","SYRIUS")
+DB_USERPWD   = os.environ.get("DB_USERPWD","cube12")
+DB_JDBC_URL  = os.environ.get("DB_JDBC_URL","jdbc:oracle:thin:@//docker:1521/orcl")
 
 # Connect to the AdminServer
 # ==========================
