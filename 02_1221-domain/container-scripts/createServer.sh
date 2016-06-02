@@ -26,6 +26,8 @@ if [ $ADD_SERVER -eq 1 ]; then
   $WLST /u01/oracle/add-server.py
   $WLST /u01/oracle/wlst_create_datasources.py
   $WLST /u01/oracle/wlst_create_jms.py
+  #ev set_mbeanserver.py ausführen und adminserver restarten
+  #$WLST /u01/oracle/wlst_deploy_syrius.py --läuft über anderes image
 fi
 
 # print log
