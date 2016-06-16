@@ -39,7 +39,7 @@ services:
     networks:
       - *network 
     ports:
-      - "8001"
+      - "8001:8001"
 
   # Deploys a container running a Managed Server and a Node Manager to control MS from AdminServer
   managedserver:
@@ -49,6 +49,8 @@ services:
       - *network 
     depends_on:
       - *admin
+    extra_hosts:
+      - "docker:192.168.99.1"
 
   # Deploys a container running only a node manager. to deploy a managed server here later, use AdminServer Web Console
 #  nodemanager:
