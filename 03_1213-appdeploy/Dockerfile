@@ -21,10 +21,14 @@ FROM clou/wls:12.1.3-domain
 
 # Maintainer
 # ----------
-MAINTAINER Bruno Borges <bruno.borges@oracle.com>
+MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 
 # Define variables
-ENV APP_NAME="syrius_services" \
+#ARG ADMIN_PASSWORD
+ENV ADMIN_PASSWORD="$ADMIN_PASSWORD" \
+    ADMIN_PORT="8001" \
+    ADMIN_HOST="wlsadmin" \
+    APP_NAME="syrius_services" \
     APP_PKG_FILE="syrius_services.ear" \
     APP_PKG_LOCATION="/u01/oracle"
 
@@ -33,4 +37,4 @@ COPY container-scripts/*.py /u01/oracle/
 COPY container-scripts/*.ear /u01/oracle/
 
 
-RUN wlst.sh /u01/oracle/app-deploy.py
+RUN wlst.sh /u01/oracle/app-deploy_online.py
