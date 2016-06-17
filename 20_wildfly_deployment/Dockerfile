@@ -12,12 +12,12 @@
 # HOW TO BUILD THIS IMAGE
 # -----------------------
 # Run: 
-#      $ docker build -t 1213-appdeploy .
+#      $ docker build -t clou/syr:3_06_HEAD .
 #
 
 # Pull base image
 # ---------------
-FROM clou/wls:12.1.3-domain
+FROM jboss/wildfly
 
 # Maintainer
 # ----------
@@ -25,17 +25,7 @@ MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 
 # Define variables
 #ARG ADMIN_PASSWORD
-ENV ADMIN_PASSWORD="$ADMIN_PASSWORD" \
-    ADMIN_PORT="8001" \
-    ADMIN_HOST="wlsadmin" \
-    APP_NAME="syrius_services" \
-    APP_PKG_FILE="syrius_services.ear" \
-    APP_PKG_LOCATION="/u01/oracle"
-
-# Copy files and deploy application in WLST Offline mode
-COPY container-scripts/*.py /u01/oracle/
-COPY syrius/software/syrius_services.ear /u01/oracle/
-COPY syrius/config/ /u01/oracle/
 
 
-RUN wlst.sh /u01/oracle/app-deploy.py
+# Copy files and deploy application
+ADD syrius/software/syrius_services.ear /opt/jboss/wildfly/standalone/deployments/
