@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"
+[ 
+   <!ENTITY StdContextPattern  "&#37;d ; &#37;p ; &#37;X{JVM_ID} ; &#37;X{THREAD_ID} ; &#37;X{REQUEST_ID} ; &#37;X{USERNAME} ; &#37;X{SESSION_ID} ; &#37;c&#37;X{METHOD_NAME}">
+   <!ENTITY AuditLogPattern    "&StdContextPattern; ; &#37;X{TRAIL} ; &#37;m&#37;n"> 
+]>
+
+<log4j:configuration 
+   xmlns:log4j="http://jakarta.apache.org/log4j/" 
+   threshold="all"
+   debug="true">
+
+   <appender name="Only_AUDIT_BUSINESS" class="org.apache.log4j.FileAppender">
+      <param name="Append"    value="true"/>
+      <param name="File"      value="/opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs/AUDIT_BUSINESS.log"/>
+      <param name="Encoding"  value="iso-8859-1"/>
+      <layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" value="&AuditLogPattern;"/> </layout>
+   </appender>
+ 
+   <appender name="Only_AUDIT_CONTRACT" class="org.apache.log4j.FileAppender">
+      <param name="Append"    value="true"/>
+      <param name="File"      value="/opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs/AUDIT_CONTRACT.log"/>
+      <param name="Encoding"  value="iso-8859-1"/>
+      <layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" value="&AuditLogPattern;"/> </layout>
+   </appender>
+ 
+   <appender name="Only_AUDIT_SECURITY" class="org.apache.log4j.FileAppender">
+      <param name="Append"    value="true"/>
+      <param name="File"      value="/opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs/AUDIT_SECURITY.log"/>
+      <param name="Encoding"  value="iso-8859-1"/>
+      <layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" value="&AuditLogPattern;"/> </layout>
+   </appender>
+ 
+   <appender name="Only_AUDIT_USER" class="org.apache.log4j.FileAppender">
+      <param name="Append"    value="true"/>
+      <param name="File"      value="/opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs/AUDIT_USER.log"/>
+      <param name="Encoding"  value="iso-8859-1"/>
+      <layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" value="&AuditLogPattern;"/> </layout>
+   </appender>
+
+   <logger name="BUSINESS">
+      <level value="NONE" class="syrius.util.logging.auditlog.AuditLogLevel"/>
+      <appender-ref ref="Only_AUDIT_BUSINESS"/>
+   </logger>
+ 
+   <logger name="CONTRACT">
+      <level value="NONE" class="syrius.util.logging.auditlog.AuditLogLevel"/>
+      <appender-ref ref="Only_AUDIT_CONTRACT"/>
+   </logger>
+ 
+<!-- BEGINN PRODUKT-OPTION -->
+<!--
+     LIZENZ HINWEIS AUF KOSTENPFLICHTIGE PRODUKT-OPTION
+     Der Security Audit Trail ist eine lizenzpflichtige Produkt Option. Die Lizenzierung ist vor Aktivierung
+     mit Adcubum zu klaeren.
+     Mit der Aktivierung durch das Setzen des Log Levels des Security Loggers auf einen anderen Wert wie NONE,
+     erklaert sich der Betreiber mit den Lizenzbedingungen einverstanden.
+-->
+   <logger name="SECURITY">
+      <level value="NONE" class="syrius.util.logging.auditlog.AuditLogLevel"/>
+      <appender-ref ref="Only_AUDIT_SECURITY"/>
+   </logger>
+<!-- ENDE PRODUKT-OPTION -->
+ 
+   <logger name="USER">
+      <level value="NONE" class="syrius.util.logging.auditlog.AuditLogLevel"/>
+      <appender-ref ref="Only_AUDIT_USER"/>
+   </logger>
+   
+   <root>
+      <level value="NONE" class="syrius.util.logging.auditlog.AuditLogLevel"/>
+   </root>
+
+</log4j:configuration>
