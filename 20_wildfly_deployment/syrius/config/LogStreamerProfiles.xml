@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LogStreamerProfiles>
+
+  <Profile name="Fachlog MR/VR">
+     <Filter loggerPrefix="syrius.modul_bl.sys_def.service.metarule.FachLogging"> 
+         <MDC name="SESSION_ID" initReference="SESSION_ID"/> 
+     </Filter>
+  </Profile>
+
+	<Profile name="Fachlog All Users MR/VR">
+     <Filter loggerPrefix="syrius.modul_bl.sys_def.service.metarule.FachLogging"/>
+  </Profile>
+
+
+  <!-- 
+  <Profile name="INFO_TESTING">
+    <Filter>
+      <Level name="INFO_TESTING"/>
+      <MDC name="SESSION_ID" initReference="SESSION_ID"/>
+    </Filter>
+  </Profile>
+
+  <Profile name="ServiceCalls">
+    <Filter loggerPrefix="syrius.modul_bl.service.impl.AbstractServiceContext">
+      <MDC name="SESSION_ID" initReference="SESSION_ID"/>
+    </Filter>
+  </Profile>
+
+  <Profile name="RemotePings">
+    <Filter loggerPrefix="com.adcubum.logstreamer.test.AppServerSimulator"/>
+  </Profile> 
+  -->
+
+</LogStreamerProfiles>
