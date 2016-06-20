@@ -1,0 +1,138 @@
+#!/bin/bash
+#################################################
+#                                               #
+# Script to start ElasticSearch                 #
+#                                               #
+#################################################
+#                                               #
+# History                                       #
+#                                               #
+# v0.1   PFR    initial version                 #
+#                                               #
+#################################################
+
+######################
+# Some basic checks  #
+######################
+export JAVA_HOME=/opt/java/ibm-java7
+
+if [ -z ${JAVA_HOME} ]; then
+   export JAVA_HOME=/opt/java/java8
+fi
+
+if [ -x "$JAVA_HOME/bin/java" ]; then
+    JAVA="$JAVA_HOME/bin/java"
+else
+    echo "Using system default Java"
+    JAVA=`which java`
+fi
+
+if [ ! -x "$JAVA" ]; then
+    echo "Could not find any executable java binary. Please install java in your PATH or set JAVA_HOME"
+    exit 1
+fi
+
+if [ -z "$ES_CLASSPATH" ]; then
+    echo "You must set the ES_CLASSPATH var" >&2
+    exit 1
+fi
+
+######################
+# Some basic checks  #
+######################
+
+launch_service()
+{
+    pidpath=$1
+    daemonized=$2
+    props=$3
+    es_parms="-Delasticsearch"
+
+    if [ "x$pidpath" != "x" ]; then
+        es_parms="$es_parms -Des.pidfile=$pidpath"
+    fi
+
+    # Make sure we dont use any predefined locale, as we check some exception message strings and rely on english language
+    # As those strings are created by the OS, they are dependant on the configured locale
+    LANG=en_US.UTF-8
+    LC_ALL=en_US.UTF-8
+
+    # The es-foreground option will tell Elasticsearch not to close stdout/stderr, but it's up to us not to daemonize.
+    if [ "x$daemonized" = "x" ]; then
+        es_parms="$es_parms -Des.foreground=yes"
+        exec "$JAVA" $JAVA_OPTS $ES_JVM_ARGS $es_parms -Des.path.home="$ES_HOME" -cp "$ES_CLASSPATH" $props \
+                org.elasticsearch.bootstrap.Elasticsearch
+        # exec without running it in the background, makes it replace this shell, we'll never get here...
+        # no need to return something
+    else
+        # Startup Elasticsearch, background it, and write the pid.
+        exec "$JAVA" $JAVA_OPTS $ES_JVM_ARGS $es_parms -Des.path.home="$ES_HOME" -cp "$ES_CLASSPATH" $props \
+                    org.elasticsearch.bootstrap.Elasticsearch &
+        return $?
+    fi
+}
+
+######################
+# Main               #
+######################
+
+ARGV=""
+while [ $# -gt 0 ]
+do
+    case $1 in
+      --*=*) properties="$properties -Des.${1#--}"
+           shift 1
+           ;;
+      --*) properties="$properties -Des.${1#--}=$2"
+           shift 2
+           ;;
+      *) ARGV="$ARGV $1" ; shift
+    esac
+done
+
+# Parse any command line options.
+args=`getopt vdhp:D:X: $ARGV`
+eval set -- "$args"
+
+while true; do
+    case $1 in
+        -v)
+            "$JAVA" $JAVA_OPTS $ES_JVM_ARGS $es_parms -Des.path.home="$ES_HOME" -cp "$ES_CLASSPATH" $props \
+                    org.elasticsearch.Version
+            exit 0
+        ;;
+        -p)
+            pidfile="$2"
+            shift 2
+        ;;
+        -d)
+            daemonized="yes"
+            shift
+        ;;
+        -h)
+            echo "Usage: $0 [-d] [-h] [-p pidfile]"
+            exit 0
+        ;;
+        -D)
+            properties="$properties -D$2"
+            shift 2
+        ;;
+        -X)
+            properties="$properties -X$2"
+            shift 2
+        ;;
+        --)
+            shift
+            break
+        ;;
+        *)
+            echo "Error parsing argument $1!" >&2
+            exit 1
+        ;;
+    esac
+done
+
+# Start up the service
+launch_service "$pidfile" "$daemonized" "$properties"
+
+exit $?

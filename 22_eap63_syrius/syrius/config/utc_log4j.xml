@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"
+[ 
+   <!ENTITY StdContextPattern  "&#37;d ; &#37;p ; &#37;X{JVM_ID} ; &#37;X{THREAD_ID} ; &#37;X{REQUEST_ID} ; &#37;X{USERNAME} ; &#37;X{SESSION_ID} ; &#37;c&#37;X{METHOD_NAME}">
+]>
+
+<!--
+
+Setup with
+
+-Dlog4j.configuration=./conf/log4j.xml
+
+-->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+  threshold="debug">
+
+  <appender name="FULL_DEBUG" class="org.apache.log4j.RollingFileAppender">
+    <param name="Append" value="false"/>
+    <param name="File" value="/opt/jboss/syrius/logs/utc_debug.log"/>
+    <param name="MaxFileSize" value="512MB"/>
+    <param name="maxBackupIndex" value="4"/>
+    <param name="Threshold" value="DEBUG"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="&StdContextPattern; ; %x ; %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="ERROR_FATAL" class="org.apache.log4j.FileAppender">
+    <param name="Append" value="false"/>
+    <param name="File" value="/opt/jboss/syrius/logs/utc_error.log"/>
+    <param name="Threshold" value="ERROR"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="&StdContextPattern; ; %x ; %m%n"/>
+    </layout>
+  </appender>
+
+  <!-- uncomment following configurations when using logstreamer -->
+  <appender name="LOGSTREAMER_ASYNC" class="org.apache.log4j.AsyncAppender">
+    <param name="BufferSize" value="500" />
+    <appender-ref ref="LOGSTREAMER" />
+  </appender>
+   
+  <appender name="LOGSTREAMER" class="com.adcubum.logstreamer.server.DistributedAppender">
+    <param name="Registername" value="${logstreamer.name}"/>
+    <param name="Config" value="${logstreamer.jgroups_config}"/>
+    <param name="Clustername" value="${logstreamer.jgroups_name}"/>
+    <param name="Threshold" value="INFO"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{HH:mm:ss,SSS}&#009;%m%n"/>
+    </layout>
+  </appender>
+
+  <logger name="syrius.modul_bl.sys_def.service.metarule.FachLogging" additivity="false">
+    <level value="BUSINESS_INFORMATION#syrius.util.logging.SyrLog"/>
+    <appender-ref ref="LOGSTREAMER_ASYNC"/> 
+  </logger>
+  <!-- uncomment previous configurations when using logstreamer -->
+  
+
+  <logger name="syrius.server.res">
+    <level value="WARN"/>
+  </logger>
+
+  <logger name="syrius.env.factory.AbstractFactory">
+    <level value="DEBUG"/>
+  </logger>
+
+  <logger name="syrius.modul_bl.service.AbstractServiceContext">
+    <level value="DEBUG"/>
+  </logger>
+
+  <logger name="org.jgroups.protocols.FD">
+    <level value="INFO"/>
+  </logger>
+
+	<logger name="org.apache.fop">
+	  <level value="ERROR"/>
+  </logger>
+
+  <root>
+    <!-- <appender-ref ref="FULL_DEBUG"/> -->
+    <appender-ref ref="ERROR_FATAL"/>
+  </root>
+
+</log4j:configuration>
+
+
+
