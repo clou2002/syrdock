@@ -1,0 +1,15 @@
+############# Elasticsearch TransportClient Konfiguration #############
+# Ueber diese Datei wird der ElasticSearch TransportClient konfiguriert.
+# Ueber den TC wird die Verbindung zwischen SYRIUS und ES realisiert.
+ 
+###################### Elasticsearch Clustername ######################
+cluster.name: syriusEsCluster_GENERALI_O
+#################### TransportClient Konfiguration ####################
+client.transport.sniff: true
+#client.transport.ping_timeout: 5s
+#client.transport.nodes_sampler_interval: 5s
+############# Liste aller Nodes im Elasticsearch-Cluster ##############
+cluster:
+  nodes:
+    - adzh-srlp-qa16.intern.cube.ch:42717
+
