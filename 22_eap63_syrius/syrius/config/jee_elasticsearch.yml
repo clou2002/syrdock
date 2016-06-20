@@ -1,0 +1,12 @@
+cluster.name: syriusEsCluster_GENERALI_O
+transport.tcp.port: 42717
+http.port: 42718
+path.conf: /opt/jboss/syrius/config
+path.data: /opt/jboss/syrius/eshome/data
+path.logs: /opt/jboss/syrius/logs
+#Examples:
+#transport.tcp.port: 9300
+#http.port: 9200
+#http.max_content_length: 100mb
+http.enabled: false
+action.auto_create_index: false
