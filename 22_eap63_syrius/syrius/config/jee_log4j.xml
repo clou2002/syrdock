@@ -96,6 +96,7 @@ Setup with
 
 
   <!-- uncomment following configurations when using logstreamer -->
+  <!--
   <appender name="LOGSTREAMER_ASYNC" class="org.apache.log4j.AsyncAppender">
     <param name="BufferSize" value="500" />
     <appender-ref ref="LOGSTREAMER" />
@@ -115,6 +116,7 @@ Setup with
     <level value="BUSINESS_INFORMATION#syrius.util.logging.SyrLog"/>
     <appender-ref ref="LOGSTREAMER_ASYNC"/> 
   </logger>
+  -->
   <!-- uncomment previous configurations when using logstreamer -->
   
 

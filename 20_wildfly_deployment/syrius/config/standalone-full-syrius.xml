@@ -392,7 +392,7 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:messaging:1.4">
+        <subsystem xmlns="urn:jboss:domain:messaging:3.0">
             <hornetq-server>
                 <persistence-enabled>true</persistence-enabled>
                 <journal-type>NIO</journal-type>
@@ -493,7 +493,7 @@
         <subsystem xmlns="urn:jboss:domain:remoting:1.1">
             <connector name="remoting-connector" socket-binding="remoting"/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:resource-adapters:1.1"/>
+        <subsystem xmlns="urn:jboss:domain:resource-adapters:3.0"/>
         <subsystem xmlns="urn:jboss:domain:sar:1.0"/>
         <subsystem xmlns="urn:jboss:domain:security:1.2">
             <security-domains>
