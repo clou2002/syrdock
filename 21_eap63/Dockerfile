@@ -23,6 +23,13 @@ FROM jboss/base-jdk:7
 # ----------
 MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 
+### Install Java
+COPY java/jdk-7u80-linux-x64.tar.gz /tmp/jdk-7u80-linux-x64.tar.gz
+RUN tar xvf /tmp/jdk-7u80-linux-x64.tar.gz
+ENV JAVA_HOME /opt/jboss/jdk1.7.0_80
+#TODO delete unnessessary stuff to reduce image size
+
+
 ### Install EAP 6.3.0
 ADD jboss/jboss-eap-6.3.0.zip /tmp/jboss-eap-6.3.0.zip
 RUN unzip /tmp/jboss-eap-6.3.0.zip
