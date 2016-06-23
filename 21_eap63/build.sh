@@ -1,1 +1,1 @@
-docker build -t clou/syr:jboss-eap-6 .
+docker build -t clou/syr:eap6jdk7 .

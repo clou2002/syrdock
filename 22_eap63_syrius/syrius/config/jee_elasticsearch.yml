@@ -1,9 +1,9 @@
 cluster.name: syriusEsCluster_GENERALI_O
 transport.tcp.port: 42717
 http.port: 42718
-path.conf: /opt/jboss/syrius/config
-path.data: /opt/jboss/syrius/eshome/data
-path.logs: /opt/jboss/syrius/logs
+path.conf: /opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/config
+path.data: /opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/eshome/data
+path.logs: /opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs
 #Examples:
 #transport.tcp.port: 9300
 #http.port: 9200

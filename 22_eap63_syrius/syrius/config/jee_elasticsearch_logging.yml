@@ -33,7 +33,7 @@ appender:
 
   file:
     type: dailyRollingFile
-    file: /opt/jboss/syrius/logs/syriusEsCluster_GENERALI_O.log
+    file: /opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs/syriusEsCluster_GENERALI_O.log
     datePattern: "'.'yyyy-MM-dd"
     layout:
       type: pattern
@@ -41,7 +41,7 @@ appender:
 
   index_search_slow_log_file:
     type: dailyRollingFile
-    file: /opt/jboss/syrius/logs/syriusEsCluster_GENERALI_O_index_search_slowlog.log
+    file: /opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs/syriusEsCluster_GENERALI_O_index_search_slowlog.log
     datePattern: "'.'yyyy-MM-dd"
     layout:
       type: pattern
@@ -49,7 +49,7 @@ appender:
 
   index_indexing_slow_log_file:
     type: dailyRollingFile
-    file: /opt/jboss/syrius/logs/syriusEsCluster_GENERALI_O_index_indexing_slowlog.log
+    file: /opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs/syriusEsCluster_GENERALI_O_index_indexing_slowlog.log
     datePattern: "'.'yyyy-MM-dd"
     layout:
       type: pattern
