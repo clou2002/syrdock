@@ -34,7 +34,7 @@ Setup with
       <param name="ConversionPattern" value="&StdContextPattern; ; %x ; %m%n"/>
     </layout>
   </appender>
-<!--
+
   <!-- uncomment following configurations when using logstreamer -->
   <appender name="LOGSTREAMER_ASYNC" class="org.apache.log4j.AsyncAppender">
     <param name="BufferSize" value="500" />
@@ -56,7 +56,7 @@ Setup with
     <appender-ref ref="LOGSTREAMER_ASYNC"/> 
   </logger>
   <!-- uncomment previous configurations when using logstreamer -->
- --> 
+  
 
   <logger name="syrius.server.res">
     <level value="WARN"/>

@@ -13,7 +13,7 @@ fi
 # abort on all errors
 set -e
 
-#export JAVA_HOME=${UTC_JAVA_HOME}
+export JAVA_HOME=${UTC_JAVA_HOME}
 export PATH=$JAVA_HOME/bin:$PATH
 
 ########### main funcs
@@ -124,14 +124,14 @@ function start_utc
     -Dlog4j.configuration=${SYRMAN_CFG}/utc_log4j.xml \
     -Dsyrius.log4j.reconfigure=true \
     -Dsyrius.log4j.configuration.watch_interval=300000 \
-    -Ddb_type=oracle \
+    -Ddb_type=${DB_TYPE} \
     -Dsyrius.cache.jgroups.config=file://${SYRMAN_CFG}/utc_jgroups_conf.xml \
     -Dsyrius.jta.TransactionManagerName=javax.transaction.TransactionManager \
     -Dsyrius.j2ee_client=true \
     syrius.modul_utc.app.ApplicationLauncher \
 		${UTC_SYR_ARGS} --server \
     --serverproperties ${SYRMAN_CFG}/utc.conf \
-    --user admin \
+    --user ADUser \
     --port ${UTC_PORT} 
 
 }

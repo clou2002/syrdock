@@ -40,3 +40,4 @@ ADD syrius/software/syrius_services.ear /opt/jboss/wildfly/standalone/deployment
 
 
 #CMD ["/opt/jboss/wildfly/bin/standalone.sh -c standalone-full-syrius.xml -P /opt/jboss/syrius/config/jboss.config > /opt/jboss/syrius/logs/jboss.log 2>&1 &"]
+CMD ["/opt/jboss/wildfly/bin/standalone.sh","-c","standalone-full-syrius.xml","-P","/opt/jboss/syrius/config/jboss.config"]
