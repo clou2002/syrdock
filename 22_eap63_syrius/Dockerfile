@@ -29,7 +29,7 @@ MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 
 #ENV UTC_HOME=/opt/jboss/syrius/ASE-UTC-Server
 #ENV UTC_JVM_ARGS="-Xmx1000M -XX:MaxPermSize=256M -Dsyrius.profiling=true -Djavax.xml.bind.JAXBContext=com.sun.xml.bind.v2.ContextFactory -Dsyrius.auditlogger=/opt/jboss/syrius/config/auditlog.xml -Dsyrius.adcubum_intern=true -Dlogstreamer.profiles=//opt/jboss/syrius/config/LogStreamerProfiles.xml -Dlogstreamer.jgroups_config=file:///opt/jboss/syrius/config/fl_jgroups.xml -Dlogstreamer.jgroups_name=GENERALI_O -Dlogstreamer.name=GENERALI_O_test"
-ENV UTC_PORT=8081
+ENV UTC_PORT=42703
 
 ENV SYRMAN_LOG=/opt/jboss/syrius/logs
 ENV SYRMAN_CFG=/opt/jboss/syrius/config
@@ -52,6 +52,6 @@ USER root
 RUN chown -R jboss:jboss /opt/jboss/syrius
 USER jboss
 
-EXPOSE 42705 9990 9999 $UTC_PORT
+EXPOSE 42705 42707  9990 9999 $UTC_PORT
 
 CMD ["/opt/jboss/syrius/bin/jboss_start"]
