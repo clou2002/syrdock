@@ -141,5 +141,6 @@ function wait_utc
   wait_pid_and_port "${SYRMAN_LOG}/run/utc_${SYR_INSTANCE}.pid" "${UTC_PORT}"
 }
 
+. $SYR_INSTANCE_ROOT/properties
 start_utc
 wait_utc
