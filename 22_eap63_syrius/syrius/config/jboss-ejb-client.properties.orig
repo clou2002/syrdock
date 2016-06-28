@@ -1,6 +1,6 @@
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
 remote.connections=GENERALI_O
-remote.connection.GENERALI_O.host=syr
+remote.connection.GENERALI_O.host=adzh-srlp-qa16.intern.cube.ch
 remote.connection.GENERALI_O.port=42747
 remote.connection.GENERALI_O.connect.timeout=10000
 remote.connection.GENERALI_O.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false

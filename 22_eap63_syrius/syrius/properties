@@ -132,7 +132,7 @@ export UTC_HOME=${SYR_INSTANCE_ROOT}/ASE-UTC-Server
 export UTC_JAVA_HOME=$SYR_JAVA_HOME
 export UTC_CLASSPATH=`find ${ASE_MR}/utc -maxdepth 1 -type f -name "*.jar" 2>/dev/null | tr "\n" ":"`
 
-export UTC_JVM_ARGS="-Xmx1000M -XX:MaxPermSize=256M -Dsyrius.profiling=true -Djavax.xml.bind.JAXBContext=com.sun.xml.bind.v2.ContextFactory -Dsyrius.startup_clock_tolerance_millis=1000"
+export UTC_JVM_ARGS="-Xmx1000M -XX:MaxPermSize=256M -Dsyrius.profiling=true -Djavax.xml.bind.JAXBContext=com.sun.xml.bind.v2.ContextFactory -Dsyrius.startup_clock_tolerance_millis=10000000"
 export UTC_JVM_ARGS="${UTC_JVM_ARGS} -Dsyrius.auditlogger=${SYRMAN_CFG}/auditlog.xml"
 export UTC_JVM_ARGS="${UTC_JVM_ARGS} -Dsyrius.adcubum_intern=true"
 ## Logstreamer (next 3 lines)
