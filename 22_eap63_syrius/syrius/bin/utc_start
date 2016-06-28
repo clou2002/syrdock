@@ -131,7 +131,8 @@ function start_utc
     syrius.modul_utc.app.ApplicationLauncher \
 		${UTC_SYR_ARGS} --server \
     --serverproperties ${SYRMAN_CFG}/utc.conf \
-    --user ADUser \
+    --user admin \
+	--password zukunft \
     --port ${UTC_PORT} 
 
 }

@@ -32,14 +32,17 @@ USER root
 RUN rm -rf $JAVA_HOME/lib/visualvm && rm -rf $JAVA_HOME/lib/missioncontrol && rm -f $JAVA_HOME/src.zip
 USER jboss
 
+### Set Environment
+ENV JBOSS_HOME /opt/jboss/jboss-eap-6.3
 
 ### Install EAP 6.3.0
 ADD jboss/jboss-eap-6.3.0.zip /tmp/jboss-eap-6.3.0.zip
 RUN unzip /tmp/jboss-eap-6.3.0.zip
 
+### Add 6.3.3 patch
+COPY jboss/jboss-eap-6.3.3-patch.zip /tmp/jboss-eap-6.3.3-patch.zip
+RUN ${JBOSS_HOME}/bin/jboss-cli.sh --commands="patch apply /tmp/jboss-eap-6.3.3-patch.zip"
 
-### Set Environment
-ENV JBOSS_HOME /opt/jboss/jboss-eap-6.3
 
 ### Create EAP User
 RUN $JBOSS_HOME/bin/add-user.sh admin welcome1! --silent

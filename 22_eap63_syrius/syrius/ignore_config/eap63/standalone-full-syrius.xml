@@ -152,7 +152,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:1.2">
             <datasources>
                 <datasource jndi-name="java:/jdbc/SyriusNewTransactionDS" pool-name="SyriusNewTransactionDS" enabled="true" jta="true" use-ccm="true">
-                    <connection-url>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.99.1)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))</connection-url>
+                    <connection-url>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=docker)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))</connection-url>
                     <driver>oracle</driver>
                     <security>
                         <user-name>syriusdocker</user-name>
@@ -175,8 +175,7 @@
                         <blocking-timeout-millis>10000</blocking-timeout-millis>
                     </timeout>
                 </datasource>
-                <!--
-				<datasource jndi-name="java:/ldap/SyriusUserDS" pool-name="SyriusUserDS" enabled="true">
+                <datasource jndi-name="java:/ldap/SyriusUserDS" pool-name="SyriusUserDS" enabled="true">
                     <connection-url>jdbc:syriusldap:ldap://adzh-srwdcp-01.intern.cube.ch/OU=Prod,DC=intern,DC=cube,DC=ch</connection-url>
                     <driver>syrius-ldap-driver</driver>
                     <pool>
@@ -198,9 +197,8 @@
                         <blocking-timeout-millis>10000</blocking-timeout-millis>
                     </timeout>
                 </datasource>
-				-->
                 <xa-datasource jndi-name="java:/jdbc/SyriusDS" pool-name="SyriusDS" enabled="true" use-ccm="true">
-                    <xa-datasource-property name="URL">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.99.1)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))</xa-datasource-property>
+                    <xa-datasource-property name="URL">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=docker)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))</xa-datasource-property>
                     <driver>oracle</driver>
                     <xa-pool>
                         <min-pool-size>1</min-pool-size>
@@ -230,7 +228,7 @@
                     </statement>
                 </xa-datasource>
                 <xa-datasource jndi-name="java:/jdbc/SyriusBatchDS" pool-name="SyriusBatchDS" enabled="true" use-ccm="true">
-                    <xa-datasource-property name="URL">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.99.1)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))</xa-datasource-property>
+                    <xa-datasource-property name="URL">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=docker)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))</xa-datasource-property>
                     <driver>oracle</driver>
                     <xa-pool>
                         <min-pool-size>1</min-pool-size>
@@ -266,11 +264,9 @@
                     <driver name="oracle" module="com.oracle.jdbc">
                         <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>
                     </driver>
-                    <!--
-					<driver name="syrius-ldap-driver" module="com.adcubum.syrius.ldap">
+                    <driver name="syrius-ldap-driver" module="com.adcubum.syrius.ldap">
                         <driver-class>syrius.modul_ejb.ldap.ds.LDAPDriver</driver-class>
                     </driver>
-					-->
                 </drivers>
             </datasources>
         </subsystem>
@@ -294,7 +290,7 @@
                 <singleton default-access-timeout="5000"/>
             </session-bean>
             <mdb>
-                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:hornetq-ra.rar}"/>
+                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:hornetq-ra.rar}“/>
                 <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
             </mdb>
             <pools>
@@ -521,10 +517,9 @@
                         <policy-module code="Delegating" flag="required"/>
                     </authorization>
                 </security-domain>
-
-				<security-domain name="SyriusLogin">
+                <security-domain name="SyriusLogin">
                     <authentication>
-                        <!--<login-module code="syrius.server.auth.spi.ldap.LdapLoginModule" flag="required">
+                        <login-module code="syrius.server.auth.spi.ldap.LdapLoginModule" flag="required">
                             <module-option name="debug" value="true"/>
                             <module-option name="userProvider" value="ldap://adzh-srwdcp-01.intern.cube.ch/OU=Prod,DC=intern,DC=cube,DC=ch"/>
                             <module-option name="regExpLoginUser" value="\{USERNAME\}"/>
@@ -534,17 +529,15 @@
                             <module-option name="searchUserPassword" value="Pa$$w0rd!"/>
                             <module-option name="useSSL" value="false"/>
                         </login-module>
-						-->
                         <login-module code="syrius.server.auth.spi.SyrUserLoginModule" flag="required">
                             <module-option name="buildSyrUser" value="true"/>
-							<module-option name="buildRolesFromUserGroupConnector" value="true"/>
-                            <module-option name="checkPasswordAgainstSyrUser" value="true"/>
+														<module-option name="buildRolesFromUserGroupConnector" value="true"/>
+                            <module-option name="checkPasswordAgainstSyrUser" value="false"/>
                             <module-option name="allowNullUserName" value="false"/>
-                            <module-option name="adminUsername" value="admin"/>
+                            <module-option name="adminUsername" value="SyriusAdmin"/>
                         </login-module>
                     </authentication>
                 </security-domain>
-				
                 <security-domain name="SharedSecretTokenLogin">
                     <authentication>
                         <login-module code="syrius.server.auth.spi.token.SharedSecretTokenLoginModule" flag="required">
@@ -559,7 +552,7 @@
                             <module-option name="buildRolesFromUserGroupConnector" value="true"/>
                             <module-option name="checkPasswordAgainstSyrUser" value="false"/>
                             <module-option name="allowNullUserName" value="true"/>
-                            <module-option name="adminUsername" value="admin"/>
+                            <module-option name="adminUsername" value="SyriusAdmin"/>
                         </login-module>
                     </authentication>
                 </security-domain>
@@ -620,8 +613,7 @@
     </interfaces>
 
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
-        <socket-binding name="management-native" interface="management" port="${jboss.management.native.port:9999}"/>
-        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
+        <socket-binding name="management-native" interface="management" port="${jboss.management.native.port:9999}"/>        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9443}"/>
         <socket-binding name="ajp" port="42709"/>
         <socket-binding name="http" port="42705"/>
