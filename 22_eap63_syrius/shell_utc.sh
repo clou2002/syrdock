@@ -1,1 +1,1 @@
-docker exec -ti utc /bin/bash
+docker exec -ti syr_utc /bin/bash
