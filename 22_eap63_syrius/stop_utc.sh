@@ -1,1 +1,1 @@
-docker rm -f utc
+docker rm -f syr_utc

@@ -13,6 +13,7 @@ fi
 # abort on all errors
 set -e
 
+. $SYR_INSTANCE_ROOT/properties
 export JAVA_HOME=${UTC_JAVA_HOME}
 export PATH=$JAVA_HOME/bin:$PATH
 
@@ -34,7 +35,7 @@ function poor_mans_start_stop_daemon
     cd "$DIR"
     exec "$@"
     exit 1 # should never happen
-	)< /dev/null >${SYRMAN_LOG}/utc_console.log 2>&1 &
+	)< /dev/null >${SYRMAN_LOG}/utc_console.log 2>&1 
   echo $! > "$PIDFILE"
 }
 
@@ -142,6 +143,6 @@ function wait_utc
   wait_pid_and_port "${SYRMAN_LOG}/run/utc_${SYR_INSTANCE}.pid" "${UTC_PORT}"
 }
 
-. $SYR_INSTANCE_ROOT/properties
+
 start_utc
-wait_utc
+#wait_utc
