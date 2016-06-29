@@ -1,13 +1,14 @@
 # LICENSE CDDL 1.0 + GPL 2.0
 #
-# Copyright (c) 2015 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016 Adcubum AG and/or its affiliates. All rights reserved.
 # 
-# ORACLE DOCKERFILES PROJECT
+# Adcubum AG DOCKERFILES PROJECT
 # --------------------------
-# This Dockerfile extends the Oracle WebLogic image built under 1221-domain with tag name '1221-domain'
+# This Dockerfile extends the jboss base image built under jboss/base with tag name 'latest'
 #
 # It will deploy any package defined in APP_PKG_FILE located in APP_PKG_LOCATION
 # into the DOMAIN_HOME with name defined in APP_NAME
+# It will install Oracle JDK 7, JBoss EAP 6.3.0 and patch 6.3.3
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
@@ -17,7 +18,7 @@
 
 # Pull base image
 # ---------------
-FROM jboss/base-jdk:7
+FROM jboss/base:latest
 
 # Maintainer
 # ----------
