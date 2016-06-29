@@ -24,11 +24,7 @@ FROM clou/syr:eap6jdk7
 MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 
 # Define variables
-#ARG ADMIN_PASSWORD
-#ENV JAVA_OPTS="-Xmx3000M -XX:MaxPermSize=1024M -Dsyrius.log4j.configuration.watch_interval=5000 -Dsyrius.log4j.configuration.reconfigure=true -Dsyrius.profiling=true -Dsyrius.WebserviceEndpointConfig=file:///opt/jboss/syrius/config/jee_EndpointConfig.xml -XX:MaxPermSize=1024M -Djava.net.preferIPv4Stack=true -Dorg.jboss.as.logging.per-deployment=false -Dlog4j.configuration=/opt/jboss/syrius/config/jee_log4j.xml -Dsyrius.searchengine_configfile=/opt/jboss/syrius/config/es_config.yml -Dlogstreamer.profiles=/opt/jboss/syrius/config/LogStreamerProfiles.xml -Dlogstreamer.jgroups_config=file:///opt/jboss/syrius/config/fl_jgroups.xml -Dlogstreamer.jgroups_name=GENERALI_O -Dlogstreamer.name=GENERALI_O_test -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=42711,server=y,suspend=n -Djava.security.auth.login.config=/opt/jboss/syrius/config/jee_auth.conf -Dsyrius.default_userid=admin“
 
-#ENV UTC_HOME=/opt/jboss/syrius/ASE-UTC-Server
-#ENV UTC_JVM_ARGS="-Xmx1000M -XX:MaxPermSize=256M -Dsyrius.profiling=true -Djavax.xml.bind.JAXBContext=com.sun.xml.bind.v2.ContextFactory -Dsyrius.auditlogger=/opt/jboss/syrius/config/auditlog.xml -Dsyrius.adcubum_intern=true -Dlogstreamer.profiles=//opt/jboss/syrius/config/LogStreamerProfiles.xml -Dlogstreamer.jgroups_config=file:///opt/jboss/syrius/config/fl_jgroups.xml -Dlogstreamer.jgroups_name=GENERALI_O -Dlogstreamer.name=GENERALI_O_test"
 ENV UTC_PORT=42703
 
 ENV SYRMAN_LOG=/opt/jboss/syrius/logs
