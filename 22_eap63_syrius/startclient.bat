@@ -1,0 +1,1 @@
+java -jar C:\Users\SSaupe\docker-workspace\ssa\syrdock\22_eap63_syrius\syrius\software\Executables\ASE-Client\jps-client-boot-6.7.31.jar --host 192.168.99.100 --port 42703
