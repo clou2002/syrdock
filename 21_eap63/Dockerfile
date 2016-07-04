@@ -51,6 +51,16 @@ RUN $JBOSS_HOME/bin/add-user.sh admin welcome1! --silent
 ### Configure EAP
 RUN echo "JAVA_OPTS=\"\$JAVA_OPTS -Djboss.bind.address=0.0.0.0 -Djboss.bind.address.management=0.0.0.0\"" >> $JBOSS_HOME/bin/standalone.conf
 
+### Install dockerize for container dependencies
+USER root
+RUN yum -y install wget
+
+ENV DOCKERIZE_VERSION v0.2.0
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+USER jboss
+
 ### Open Ports
 EXPOSE 8080 9990 9999
 
