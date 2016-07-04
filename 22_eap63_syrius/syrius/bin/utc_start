@@ -129,6 +129,7 @@ function start_utc
     -Dsyrius.cache.jgroups.config=file://${SYRMAN_CFG}/utc_jgroups_conf.xml \
     -Dsyrius.jta.TransactionManagerName=javax.transaction.TransactionManager \
     -Dsyrius.j2ee_client=true \
+    -Djboss.ejb.client.properties.file.path=${SYRMAN_CFG}/jboss-ejb-client.properties \
     syrius.modul_utc.app.ApplicationLauncher \
 		${UTC_SYR_ARGS} --server \
     --serverproperties ${SYRMAN_CFG}/utc.conf \
