@@ -44,6 +44,8 @@ RUN unzip /tmp/jboss-eap-6.3.0.zip
 COPY software/jboss-eap-6.3.3-patch.zip /tmp/jboss-eap-6.3.3-patch.zip
 RUN ${JBOSS_HOME}/bin/jboss-cli.sh --commands="patch apply /tmp/jboss-eap-6.3.3-patch.zip"
 
+### Add oracle jdbc driver
+COPY software/jbossmodules $JBOSS_HOME/modules
 
 ### Create EAP User
 RUN $JBOSS_HOME/bin/add-user.sh admin welcome1! --silent

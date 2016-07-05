@@ -26,6 +26,9 @@ MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 # Define variables
 
 ENV UTC_PORT=42703
+ENV DB_USER=syriusdocker
+ENV DB_USERPWD=cube12
+ENV DB_JDBC_URL=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.99.1)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))
 
 ENV SYRMAN_LOG=/opt/jboss/syrius/logs
 ENV SYRMAN_CFG=/opt/jboss/syrius/config
@@ -35,7 +38,6 @@ RUN mkdir syrius
 RUN mkdir syrius/logs
 
 # Copy files and deploy application
-COPY jboss/modules $JBOSS_HOME/modules
 COPY syrius/properties syrius/properties
 COPY syrius/bin syrius/bin
 COPY syrius/config syrius/config

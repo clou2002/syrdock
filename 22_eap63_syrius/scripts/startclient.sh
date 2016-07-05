@@ -1,1 +1,1 @@
-java -jar ../syrius/software/Executables/ASE-Client/jps-client-boot-6.7.31.jar --host localhost --port 42703
+java -jar ../syrius/software/Executables/ASE-Client/jps-client-boot-*.jar --host localhost --port 42703 --client-type swing

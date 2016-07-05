@@ -32,11 +32,9 @@ services:
   # Deploys a container running a UTC server
   utcserver:
     image: *image
-    command: /opt/jboss/syrius/bin/utc_start
+    #command: /opt/jboss/syrius/bin/utc_start
     networks:
       - *network 
     depends_on:
       - *appsrv
-    #command: dockerize -wait tcp://appsrv:42705 -timeout 60s /opt/jboss/syrius/bin/utc_start 
-    extra_hosts:
-      - "docker:192.168.99.1"
+    command: dockerize -wait tcp://syr_app:42705 -timeout 300s /opt/jboss/syrius/bin/utc_start 
