@@ -208,13 +208,14 @@ export OAM_WEBDEV="false"
 #export OAM_USERS="admin,oam1,oam2,oam3,oam.rechtlos,oam.unbekannt,oam.lesend"
 
 # DB
-export DB_HOSTNAME=adzh-srlp-db06.intern.cube.ch
-export DB_PORT=1521
-export DB_SERVICE="zhdb06d.adcubum.com"
-export DB_USER=${SYR_CLUSTER}
-export DB_USERPWD=cube12
-export DB_TYPE=oracle
-export DB_JDBC_URL="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=${DB_HOSTNAME})(PORT=${DB_PORT})))(CONNECT_DATA=(SERVICE_NAME=${DB_SERVICE})(SERVER=DEDICATED)))"
+# DB properties kommen für docker über ENV variablen bei starten des Container
+#export DB_HOSTNAME=adzh-srlp-db06.intern.cube.ch
+#export DB_PORT=1521
+#export DB_SERVICE="zhdb06d.adcubum.com"
+#export DB_USER=${SYR_CLUSTER}
+#export DB_USERPWD=cube12
+#export DB_TYPE=oracle
+#export DB_JDBC_URL="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=${DB_HOSTNAME})(PORT=${DB_PORT})))(CONNECT_DATA=(SERVICE_NAME=${DB_SERVICE})(SERVER=DEDICATED)))"
 
 # JGROUPS CACHE
 export JEE_MCAST_ADDR="239.192.0.6"
