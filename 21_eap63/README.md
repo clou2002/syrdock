@@ -1,5 +1,4 @@
 #JBoss base image
-Go to folder https://github.com/clou2002/syrdock/tree/master/21_eap63
 Before you can build this JBoss image, you must download the following software and place it in the noted directory
  - an Oracle jdk like jdk-7u80-linux-x64.tar.gz and put it in the java directory (no need to unzip)
  - jboss-eap-6.3.0.zip -> jboss
