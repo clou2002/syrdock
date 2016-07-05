@@ -26,7 +26,7 @@ MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 
 
 ### Install Java
-ADD java/jdk-7u80-linux-x64.tar.gz /opt/jboss
+ADD software/jdk-7u80-linux-x64.tar.gz /opt/jboss
 ENV JAVA_HOME /opt/jboss/jdk1.7.0_80
 
 USER root
@@ -37,11 +37,11 @@ USER jboss
 ENV JBOSS_HOME /opt/jboss/jboss-eap-6.3
 
 ### Install EAP 6.3.0
-ADD jboss/jboss-eap-6.3.0.zip /tmp/jboss-eap-6.3.0.zip
+ADD software/jboss-eap-6.3.0.zip /tmp/jboss-eap-6.3.0.zip
 RUN unzip /tmp/jboss-eap-6.3.0.zip
 
 ### Add 6.3.3 patch
-COPY jboss/jboss-eap-6.3.3-patch.zip /tmp/jboss-eap-6.3.3-patch.zip
+COPY software/jboss-eap-6.3.3-patch.zip /tmp/jboss-eap-6.3.3-patch.zip
 RUN ${JBOSS_HOME}/bin/jboss-cli.sh --commands="patch apply /tmp/jboss-eap-6.3.3-patch.zip"
 
 
