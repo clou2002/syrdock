@@ -22,12 +22,12 @@ or to pass your database credentials
 docker run -d --name syr_app -p 42705:42705 -p 42707:42707 -p 9990:9990 --env DB_JDBC_URL="jdbc:oracle:thin:@//myhost:myport/myservicename" clou/syr:3_06_HEAD
 ```
 ####Test
-- [Version Servlet](localhost:42705/syrius/version)
+- [Version Servlet](http://localhost:42705/syrius/version)
 
 ###UTC Server
 Before starting UTC, wait for de Version Servlet to be ready.
 ```
-./start_app.sh
+./start_utc.sh
 or
 docker run -d --name syr_utc --link syr_app:syrnet -p 42703:42703 clou/syr:3_06_HEAD /opt/jboss/syrius/bin/utc_start
 ```
