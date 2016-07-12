@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"
+[ 
+   <!ENTITY StdContextPattern  "&#37;d ; &#37;p ; &#37;X{JVM_ID} ; &#37;X{THREAD_ID} ; &#37;X{REQUEST_ID} ; &#37;X{USERNAME} ; &#37;X{SESSION_ID} ; &#37;c&#37;X{METHOD_NAME}">
+]>
+
+<!--
+
+THIS IS AN EXAMPLE - USE AT YOUR OWN RISK
+
+-->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="debug">
+
+  <appender name="FULL_DEBUG" class="org.apache.log4j.RollingFileAppender">
+    <param name="Append" value="false"/>
+    <param name="File" value="/opt/adcubum/syrinstanz/hangar_testing/GENERALI_O/logs/bc_debug.log"/>
+    <param name="MaxFileSize" value="512MB"/>
+    <param name="maxBackupIndex" value="4"/>
+    <param name="Threshold" value="DEBUG"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="&StdContextPattern; ; %x ; %m%n"/>
+    </layout>      
+  </appender>
+  
+  <logger name="syrius">
+    <level value="DEBUG"/>
+  </logger>
+
+  <logger name="com.adcubum">
+    <level value="DEBUG"/>
+  </logger>
+
+  <root>
+    <!--<appender-ref ref="FULL_DEBUG"/>-->
+  </root>
+
+</log4j:configuration>

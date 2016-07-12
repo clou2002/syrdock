@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+# THIS IS AN EXAMPLE - USE AT OWN RISK
+# this script should run on "Debian GNU/Linux" and "Red Hat Enterprise Linux"
+function export_classpath
+{
+  export JAVA_HOME=${UTC_JAVA_HOME}
+  export PATH=$JAVA_HOME/bin:$PATH
+  export CLASSPATH=`find -L ${BC_HOME/lib} -name "*jar" -type f | tr "\n" ":"`:${JAVA_HOME}/lib/tools.jar:${SYRMAN_CFG}/.:${JBOSS_HOME}/bin/client/jboss-client.jar:
+}
+
+function start_batch_by_id
+{
+  LOGFILE_SYNTAX=${SYRMAN_LOG}/bc_`date  +%Y-%m-%d_%H%M%S`
+
+  java \
+    ${BC_JVM_ARGS} \
+    -Duser.language=de -Duser.region=CH \
+    -Djava.io.tmpdir=/tmp \
+		-Djava.util.Arrays.useLegacyMergeSort=true \
+    -Dsun.lang.ClassLoader.allowArraySyntax=true \
+    -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC -XX:+UseCompressedOops \
+		-Djava.naming.factory.url.pkgs=org.jboss.ejb.client.naming \
+    -Dsyrius.jndi.lookup.mode=JBOSS_EJB_CLIENT_API \
+    -Djava.security.auth.login.config=${SYRMAN_CFG}/bc_auth.conf \
+    -Dlog4j.configuration=${SYRMAN_CFG}/bc_log4j.xml \
+    syrius.modul_ejb.batch.nclient.BatchRunner \
+    --user ${BC_USER} \
+    --password ${BC_PWD} \
+    --mandant "$2" \
+    --instance "$3" \
+    --run-batchlauf "$1" \
+    >${LOGFILE_SYNTAX}.log 2>>${LOGFILE_SYNTAX}.console
+}
+
+function start_batch_full
+{
+  LOGFILE_SYNTAX=${SYRMAN_LOG}/bc_`date  +%Y-%m-%d_%H%M%S`
+
+  java \
+    ${BC_JVM_ARGS} \
+    -Duser.language=de -Duser.region=CH \
+    -Djava.io.tmpdir=/tmp \
+    -Dsun.lang.ClassLoader.allowArraySyntax=true \
+    -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC -XX:+UseCompressedOops \
+		-Djava.naming.factory.url.pkgs=org.jboss.ejb.client.naming \
+    -Dsyrius.jndi.lookup.mode=JBOSS_EJB_CLIENT_API \
+    -Djava.security.auth.login.config=${SYRMAN_CFG}/bc_auth.conf \
+    -Dlog4j.configuration=${SYRMAN_CFG}/bc_log4j.xml \
+    syrius.modul_ejb.batch.nclient.BatchRunner \
+    --user ${BC_USER} \
+    --password ${BC_PWD} \
+    --mandant ${SYR_MANDANT} \
+    --instance ${SYR_INSTANCE} \
+    "$@" \
+    >${LOGFILE_SYNTAX}.log 2> >(tee ${LOGFILE_SYNTAX}.console >&2)
+    exit ${PIPESTATUS[0]}
+}
+
+export_classpath
+if [[ "$1" =~ ^[1-9][0-9]*$ ]]; then  
+  start_batch_by_id "$@"
+else  
+  start_batch_full "$@"
+fi
