@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"
+[ 
+   <!ENTITY StdContextPattern  "&#37;d ; &#37;p ; &#37;X{JVM_ID} ; &#37;X{THREAD_ID} ; &#37;X{REQUEST_ID} ; &#37;X{USERNAME} ; &#37;X{SESSION_ID} ; &#37;c&#37;X{METHOD_NAME}">
+]>
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="debug">
+
+  <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out"/>
+    <param name="Threshold" value="INFO"/>
+    <param name="Encoding" value="iso-8859-1"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="&StdContextPattern; ; %m%n"/>
+    </layout>
+    
+    <filter class="org.apache.log4j.varia.LevelMatchFilter">
+      <param name="LevelToMatch" value="DEBUG"/>
+      <param name="AcceptOnMatch" value="false"/>
+    </filter>
+    
+  </appender>
+
+  <logger name="com.adcubum"><level value="INFO"/></logger>
+  <logger name="syrius"><level value="INFO"/></logger>
+
+  <root>
+    <level value="INFO"/>
+    <appender-ref ref="CONSOLE"/>
+  </root>
+</log4j:configuration>

@@ -1,0 +1,5 @@
+dbType=ORACLE
+dbDriver=oracle.jdbc.driver.OracleDriver
+dbUsername=GENERALI_O
+dbPassword=cube12
+dbUrl=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=adzh-srlp-db06.intern.cube.ch)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=zhdb06d.adcubum.com)(SERVER=DEDICATED)))

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"
+[ 
+   <!ENTITY StdContextPattern  "&#37;d ; &#37;p ; &#37;X{JVM_ID} ; &#37;X{THREAD_ID} ; &#37;X{REQUEST_ID} ; &#37;X{USERNAME} ; &#37;X{SESSION_ID} ; &#37;c&#37;X{METHOD_NAME}">
+]>
+
+<!--
+Setup with
+-Dlog4j.configuration=./config/jee_log4j.xml
+-->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="debug">
+
+  <appender name="ERROR_FATAL" class="org.apache.log4j.RollingFileAppender">
+    <param name="Append" value="true"/>
+    <param name="File" value="/opt/jboss/syrius/logs/jee_error.log"/>
+    <param name="MaxFileSize" value="64MB"/>
+    <param name="maxBackupIndex" value="4"/>
+    <param name="Encoding" value="utf-8"/>
+    <param name="Threshold" value="ERROR"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="&StdContextPattern; ; %x ; %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="SQL" class="org.apache.log4j.RollingFileAppender">
+    <param name="Append" value="true"/>
+    <param name="File" value="/opt/jboss/syrius/logs/jee_sql.log"/>
+    <param name="MaxFileSize" value="128MB"/>
+    <param name="maxBackupIndex" value="4"/>
+    <param name="Encoding" value="utf-8"/>
+    <param name="Threshold" value="SQL#syrius.util.logging.SyrLog"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="&StdContextPattern; ; %m%n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelMatchFilter">
+      <param name="LevelToMatch" value="SQL#syrius.util.logging.SyrLog"/>
+      <param name="AcceptOnMatch" value="true"/>
+    </filter>
+    <filter class="org.apache.log4j.varia.DenyAllFilter"/>
+  </appender>
+
+  <appender name="AsyncSQL" class="org.apache.log4j.AsyncAppender">
+    <param name="BufferSize" value="500" />
+    <appender-ref ref="SQL" />
+  </appender>
+
+  <appender name="JEE_LOG" class="org.apache.log4j.RollingFileAppender">
+    <param name="Append" value="true"/>
+    <param name="File" value="/opt/jboss/syrius/logs/jee_out.log"/>
+    <param name="MaxFileSize" value="128MB"/>
+    <param name="maxBackupIndex" value="4"/>
+    <param name="Encoding" value="utf-8"/>
+    <param name="Threshold" value="TRACE"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="&StdContextPattern; ; %x ; %m%n"/>
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelMatchFilter">
+      <param name="LevelToMatch" value="SQL#syrius.util.logging.SyrLog"/>
+      <param name="AcceptOnMatch" value="false"/>
+    </filter>
+    <filter class="syrius.util.logging.LoggerFilter">
+      <param name="AcceptOnMatch" value="false"/>
+      <param name="Logger" value="TSL"/>
+    </filter>
+  </appender>
+
+  <appender name="AsyncJEE_LOG" class="org.apache.log4j.AsyncAppender">
+     <param name="BufferSize" value="500" />
+     <appender-ref ref="JEE_LOG" />
+  </appender>
+
+  <appender name="TSLAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="Append" value="true" />
+    <param name="File" value="/opt/jboss/syrius/logs/jee_techservice.log" />
+    <param name="MaxFileSize" value="128MB"/>
+    <param name="maxBackupIndex" value="4"/>
+    <param name="Encoding" value="UTF-8" />
+    <param name="Threshold" value="DETAIL#syrius.util.logging.SyrLog"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="&StdContextPattern; ; %m%n"/>
+    </layout>
+    <filter class="syrius.util.logging.LoggerFilter">
+      <param name="AcceptOnMatch" value="true"/>
+      <param name="Logger" value="TSL"/>
+    </filter>
+  </appender>
+
+  <appender name="AsyncTSLAppender" class="org.apache.log4j.AsyncAppender">
+    <param name="BufferSize" value="500" />
+    <appender-ref ref="TSLAppender" />
+  </appender>
+
+
+  <!-- uncomment following configurations when using logstreamer -->
+  <appender name="LOGSTREAMER_ASYNC" class="org.apache.log4j.AsyncAppender">
+    <param name="BufferSize" value="500" />
+    <appender-ref ref="LOGSTREAMER" />
+  </appender>
+   
+  <appender name="LOGSTREAMER" class="com.adcubum.logstreamer.server.DistributedAppender">
+    <param name="Registername" value="${logstreamer.name}"/>
+    <param name="Config" value="${logstreamer.jgroups_config}"/>
+    <param name="Clustername" value="${logstreamer.jgroups_name}"/>
+    <param name="Threshold" value="INFO"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{HH:mm:ss,SSS}&#009;%m%n"/>
+    </layout>
+  </appender>
+
+  <logger name="syrius.modul_bl.sys_def.service.metarule.FachLogging" additivity="false">
+    <level value="BUSINESS_INFORMATION#syrius.util.logging.SyrLog"/>
+    <appender-ref ref="LOGSTREAMER_ASYNC"/> 
+  </logger>
+  <!-- uncomment previous configurations when using logstreamer -->
+  
+
+  <logger name="TSL">
+    <level value="BASIC#syrius.util.logging.SyrLog" />
+    <appender-ref ref="AsyncTSLAppender" />
+  </logger>
+
+
+  <!-- Logger der Root-Kategorie "EXCEPTION" loggen Exceptions an der Komponentengrenze (EJB/SOAP-Remote-Aufrufe.) -->
+  <logger name="EXCEPTION">
+      <level value="DEBUG"/>
+  </logger>
+
+
+  <root>
+    <level value="SQL#syrius.util.logging.SyrLog"/> 
+    <appender-ref ref="ERROR_FATAL"/>
+    <appender-ref ref="AsyncJEE_LOG"/>
+    <appender-ref ref="AsyncSQL"/>
+  </root>
+
+</log4j:configuration>
