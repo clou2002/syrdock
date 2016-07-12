@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- reload XML after one minute -->
+<cfg:WebserviceEndpointConfiguration xmlns:cfg="urn:syrius.modul_bl.tech.service" revalidateAfter="1000">
+
+  <PortAdapter>
+    <className>syrius.modul_bl.tech.service.impl.portadapter.FixedWSSecurityAdapter</className> 
+    <config>
+      <UsernameToken>
+        <Username>uid50050</Username>
+        <Password>cube12</Password>
+      </UsernameToken>
+    </config>
+  </PortAdapter> 
+<!-- 
+<PortAdapter>
+      <className>syrius.modul_bl.tech.service.impl.portadapter.HttpHeaderPortAdapter</className>
+      <config>
+         <key>X-consumer-authorization</key>
+         <value>c030226f6cda9d48e0743a0e7a0a222a</value>
+      </config>
+</PortAdapter> 
+-->
+  <EndpointConfiguration>
+    <serviceName>DocumentOperationService</serviceName>
+    <targetNamespace>http://www.adcubum.com/wsdl/global/callout/syrius/modul_bl/archiv/service/dmsadapter/xkgolfsr</targetNamespace>
+    <endpoint>http://adzh-srlp-us01.intern.cube.ch:13013/DocumentOperation</endpoint>
+  </EndpointConfiguration>
+
+  <EndpointConfiguration>
+    <serviceName>PermissionEvaluatorService</serviceName>
+    <targetNamespace>http://www.adcubum.com/wsdl/global/callout/syrius/modul_bl/archiv/service/dmsadapter/xkgolfsr</targetNamespace>
+    <endpoint>http://adzh-srlp-us01.intern.cube.ch:13013/PermissionEvaluator</endpoint>
+  </EndpointConfiguration>
+
+<EndpointConfiguration>
+   <serviceName>DocumentRendererService</serviceName>
+   <targetNamespace>http://www.adcubum.com/wsdl/global/callout/syrius/modul_bl/doc/service/documentrenderer/forwktbx</targetNamespace>
+     <EndpointValidation>
+     <connectTimeout>2000</connectTimeout>
+     <storeStatus>60000</storeStatus>
+     </EndpointValidation>
+   <endpoint>http://adzh-srlp-us01.intern.cube.ch:13010/DocumentRendererService</endpoint>
+</EndpointConfiguration>
+
+<EndpointConfiguration>
+    <serviceName>GlobalActivityCreatorCallout</serviceName>
+    <targetNamespace>http://www.adcubum.com/wsdl/syrius.modul_bl.workflow.global.activity.callout.temp_1.service</targetNamespace>
+    <endpoint>http://adzh-srlp-us01.intern.cube.ch:13013/GlobalActivityCreatorCallout</endpoint>
+</EndpointConfiguration>
+
+<!--CUSTOMERSTUFF-->
+
+<!--DRGDIACOS-->
+
+</cfg:WebserviceEndpointConfiguration>

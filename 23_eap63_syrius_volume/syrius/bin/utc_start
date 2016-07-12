@@ -1,0 +1,148 @@
+#!/bin/bash
+
+# THIS IS AN JBOSS EXAMPLE - USE AT OWN RISK
+# this script should run on "Debian GNU/Linux" and "Red Hat Enterprise Linux"
+
+# switch to bash
+if [ -z "$BASH_VERSION" ] ; then
+  exec bash "$0" "$@"
+  echo "sorry, but this script was only tested with bash" 1>&2
+  exit 1
+fi
+
+# abort on all errors
+set -e
+
+. $SYR_INSTANCE_ROOT/properties
+export JAVA_HOME=${UTC_JAVA_HOME}
+export PATH=$JAVA_HOME/bin:$PATH
+
+########### main funcs
+
+# pidfile directory program [args]
+function poor_mans_start_stop_daemon
+{
+  local PIDFILE="$1"
+  shift
+  local DIR="$1"
+  shift
+  if [ ! -x "$1" ] ; then
+    echo "can't exec $1" 1>&2
+    exit 1
+  fi
+  (
+    trap "" 1 # ignore SIGHUP
+    cd "$DIR"
+    exec "$@"
+    exit 1 # should never happen
+	)< /dev/null >${SYRMAN_LOG}/utc_console.log 2>&1 
+  echo $! > "$PIDFILE"
+}
+
+function wait_pid_and_port
+{  
+  local PIDFILE="$1"
+  local PORT="$2"
+
+  local PID=""
+
+  if [ ! -f $PIDFILE ] ; then
+    echo -n "waiting for `basename $PIDFILE`:" 1>&2
+    while [ ! -f $PIDFILE ] ; do
+      sleep 1
+      echo -n '.' 1>&2
+    done
+    PID=$(<$PIDFILE)
+    echo " (ok pid=$PID)" 1>&2
+  else
+    PID=$(<$PIDFILE)
+  fi
+
+  echo -n "Waiting for UTC server port $PORT/tcp to come up: " 1>&2
+  while true ; do
+    echo -n "."  1>&2 
+    local PROGRAM_PID="`lsof -i -n -P 2>/dev/null | grep ":${PORT} " | grep LISTEN | sed 's/  */ /g' | cut -d " " -f2`"
+    if [ -n "${PROGRAM_PID}" ]; then
+      echo " ready" 1>&2
+      break
+    fi
+    if [ ! -d /proc/$PID/ ] ; then
+      echo " UTC server is not running!" 1>&2
+      exit 1
+    fi
+    sleep 2
+  done
+}
+
+function start_utc
+{
+  if [ ! -d ${SYRMAN_LOG}/run ] ; then
+    mkdir ${SYRMAN_LOG}/run
+  fi
+  cd ${SYRMAN_LOG}/run  
+
+	unset DISPLAY
+
+  export CLASSPATH=`find -L ${UTC_HOME}/{jps,lib} -name "*jar" -type f | \
+    tr "\n" ":"`:${JAVA_HOME}/lib/tools.jar:${SYRMAN_CFG}/.:${JBOSS_HOME}/bin/client/jboss-client.jar:
+	export export CLASSPATH=$CLASSPATH:${UTC_CLASSPATH}
+
+  # this works only if there is no ' within the arguments!
+  if [ ! -z "$SSL_KEYSTORE" ] ; then
+    export UTC_JVM_ARGS="${UTC_JVM_ARGS} -Djavax.net.ssl.keyStore=$SSL_KEYSTORE"
+  fi
+
+  if [ ! -z "$SSL_PASSWORD" ] ; then
+    export UTC_JVM_ARGS="${UTC_JVM_ARGS} -Djavax.net.ssl.keyStorePassword=$SSL_PASSWORD"
+  fi
+
+  if [ "${UTC_JVM_ARGS}" != *"-Xmx"* ]; then
+    export UTC_JVM_ARGS="-Xmx1000M ${UTC_JVM_ARGS}"
+  fi
+
+  if [ "${UTC_JVM_ARGS}" != *"-XX:MaxPermSize="* ]; then
+    export UTC_JVM_ARGS="-XX:MaxPermSize=256M ${UTC_JVM_ARGS}"
+  fi
+#echo $CLASSPATH
+
+  poor_mans_start_stop_daemon "${SYRMAN_LOG}/run/utc_${SYR_INSTANCE}.pid" "${SYRMAN_LOG}" \
+    $JAVA_HOME/bin/java $UTC_JVM_ARGS \
+	-XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC \
+	-Djava.endorsed.dirs=${UTC_HOME}/endorsed \
+	-Duser.timezone=Europe/Zurich \
+	-Djava.util.Arrays.useLegacyMergeSort=true \
+    -Duser.language=de -Duser.region=CH \
+    -Djava.io.tmpdir=/tmp \
+    -Djava.security.auth.login.config=${SYRMAN_CFG}/utc_auth.conf \
+    -Djava.net.preferIPv4Stack=true \
+    -Djava.naming.factory.url.pkgs=org.jboss.ejb.client.naming \
+    -Dsyrius.jndi.lookup.mode=JBOSS_EJB_CLIENT_API \
+    -Dsun.lang.ClassLoader.allowArraySyntax=true \
+    -Dcom.sun.management.jmxremote \
+    -Dcom.sun.management.jmxremote.port=${UTC_JMX_PORT} \
+    -Dcom.sun.management.jmxremote.authenticate=false \
+    -Dcom.sun.management.jmxremote.ssl=false \
+    -Dlog4j.configuration=${SYRMAN_CFG}/utc_log4j.xml \
+    -Dsyrius.log4j.reconfigure=true \
+    -Dsyrius.log4j.configuration.watch_interval=300000 \
+    -Ddb_type=${DB_TYPE} \
+    -Dsyrius.cache.jgroups.config=file://${SYRMAN_CFG}/utc_jgroups_conf.xml \
+    -Dsyrius.jta.TransactionManagerName=javax.transaction.TransactionManager \
+    -Dsyrius.j2ee_client=true \
+    -Djboss.ejb.client.properties.file.path=${SYRMAN_CFG}/jboss-ejb-client.properties \
+    syrius.modul_utc.app.ApplicationLauncher \
+		${UTC_SYR_ARGS} --server \
+    --serverproperties ${SYRMAN_CFG}/utc.conf \
+    --user admin \
+	--password zukunft \
+    --port ${UTC_PORT} 
+
+}
+
+function wait_utc
+{
+  wait_pid_and_port "${SYRMAN_LOG}/run/utc_${SYR_INSTANCE}.pid" "${UTC_PORT}"
+}
+
+start_utc
+#wait_utc

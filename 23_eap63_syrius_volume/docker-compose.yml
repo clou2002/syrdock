@@ -1,0 +1,40 @@
+# Copyright (c) 2016 Adcubum AG and/or its affiliates. All rights reserved.
+#
+# Example of using Docker Compose to deploy a Syrius Applicationserver and UTC from image 'clou/syr:3_06_HEAD'
+# 
+# This Docker Compose file will only work with Docker 1.10+ and Compose 1.6+
+#
+# To run, call:
+#   $ docker-compose up
+#
+# Author: Stefan Saupe <stefan.saupe@adcubum.com> 
+#
+version: '2'
+
+networks:
+  &network syrnet:
+    driver: bridge
+
+ 
+services:
+
+  # Deploys the applicationserver with default hostname 'syr_app'. 
+  &appsrv appserver:
+    image: &image clou/syr:3_06_HEAD
+    container_name: syr_app
+    networks:
+      - *network 
+    ports:
+      - "42705:42705"
+      - "42707:42707"
+      - "9990:9990"
+
+  # Deploys a container running a UTC server
+  utcserver:
+    image: *image
+    #command: /opt/jboss/syrius/bin/utc_start
+    networks:
+      - *network 
+    depends_on:
+      - *appsrv
+    command: dockerize -wait tcp://syr_app:42705 -timeout 300s /opt/jboss/syrius/bin/utc_start 

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. ${SYR_INSTANCE_ROOT}/properties
+
+export JAVA_OPTS=${JEE_JVM_ARGS}
+
+${JBOSS_HOME}/bin/standalone.sh -c ~/syrius/config/standalone-full-syrius.xml -P ${SYR_INSTANCE_ROOT}/config/jboss.config > ${SYR_INSTANCE_ROOT}/logs/jboss.log 2>&1
