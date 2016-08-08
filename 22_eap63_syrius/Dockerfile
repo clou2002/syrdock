@@ -28,7 +28,7 @@ MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 ENV UTC_PORT=42703
 ENV DB_USER=syriusdocker
 ENV DB_USERPWD=cube12
-ENV DB_JDBC_URL=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.99.1)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))
+ENV DB_JDBC_URL=jdbc:oracle:thin:@//192.168.1.107:1521/orcl
 
 ENV SYRMAN_LOG=/opt/jboss/syrius/logs
 ENV SYRMAN_CFG=/opt/jboss/syrius/config
