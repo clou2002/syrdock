@@ -19,12 +19,6 @@ To ease startup of Syrius components there are some helper scipts in the *script
 ./start_app.sh
 or
 docker run -d --name syr_app -p 42705:42705 -p 42707:42707 -p 9990:9990 clou/syr:3_06_HEAD
-<<<<<<< HEAD
-```
-###UTC Server
-```
-./start_app.sh
-=======
 or to pass your database credentials
 docker run -d --name syr_app -p 42705:42705 -p 42707:42707 -p 9990:9990 --env DB_JDBC_URL="jdbc:oracle:thin:@//myhost:myport/myservicename" clou/syr:3_06_HEAD
 ```
@@ -35,7 +29,6 @@ docker run -d --name syr_app -p 42705:42705 -p 42707:42707 -p 9990:9990 --env DB
 Before starting UTC, wait for de Version Servlet to be ready.
 ```
 ./start_utc.sh
->>>>>>> 6c7b4eafd0de34023d0594a9c847ab49ab732d9b
 or
 docker run -d --name syr_utc --link syr_app:syrnet -p 42703:42703 clou/syr:3_06_HEAD /opt/jboss/syrius/bin/utc_start
 ```
