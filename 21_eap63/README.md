@@ -5,7 +5,7 @@ Before you can build this JBoss image, you must download the following software 
  - jboss-eap-6.3.3-patch.zip -> jboss
 
 ##Build
-IMPORTANT: you have to download the binaries of JBoss and Oracle JDK and put it in place (see .download files inside dockerfiles/).
+IMPORTANT: you have to download the binaries of JBoss and Oracle JDK and put it in place (see .download files inside software subdirectory).
 ```
 cd 21_eap63
 ./build.sh
