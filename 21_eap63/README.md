@@ -14,13 +14,8 @@ cd 21_eap63
 ##Running JBoss base image
 ```
 cd 21_eap63
-<<<<<<< HEAD
-./build.sh
-```
-=======
 ./start.sh
 ```
 
 ##Test
 - [JBoss Console](http://localhost:8080)
->>>>>>> 6c7b4eafd0de34023d0594a9c847ab49ab732d9b
