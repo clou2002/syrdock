@@ -11,11 +11,8 @@ cd 22_eap63_syrius
 ##Run Syrius
 Make sure you have the credentials of your running Syrius database ready. The database schema must have the exact same release as the Syrius software you want to run. If this is not the case, use dbupdate/refreshdb to update your database.
 
-<<<<<<< HEAD
-To ease startup of Syrius components there are some helper scipts in the scripts directory
-=======
 To ease startup of Syrius components there are some helper scipts in the *scripts* directory
->>>>>>> 6c7b4eafd0de34023d0594a9c847ab49ab732d9b
+
 
 ###Application Server
 ```
