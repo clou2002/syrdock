@@ -6,8 +6,6 @@
 # --------------------------
 # This Dockerfile extends the jboss base image built under jboss/base with tag name 'latest'
 #
-# It will deploy any package defined in APP_PKG_FILE located in APP_PKG_LOCATION
-# into the DOMAIN_HOME with name defined in APP_NAME
 # It will install Oracle JDK 7, JBoss EAP 6.3.0 and patch 6.3.3
 #
 # HOW TO BUILD THIS IMAGE

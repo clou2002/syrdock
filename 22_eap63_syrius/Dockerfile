@@ -1,10 +1,10 @@
 # LICENSE CDDL 1.0 + GPL 2.0
 #
-# Copyright (c) 2015 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016 Adcubum AG and/or its affiliates. All rights reserved.
 # 
-# ORACLE DOCKERFILES PROJECT
+# Adcubum AG DOCKERFILES PROJECT
 # --------------------------
-# This Dockerfile extends the Oracle WebLogic image built under 1221-domain with tag name '1221-domain'
+# This Dockerfile extends the clou/syr image with tag name 'eap6jdk7'
 #
 # It will deploy any package defined in APP_PKG_FILE located in APP_PKG_LOCATION
 # into the DOMAIN_HOME with name defined in APP_NAME

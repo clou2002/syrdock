@@ -15,51 +15,36 @@
   <graph edgedefault="directed" id="G">
     <data key="d0"/>
     <node id="n0">
-      <data key="d5"/>
+      <data key="d4"><![CDATA[https://github.com/clou2002/syrdock/blob/master/22_eap63_syrius/Dockerfile]]></data>
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="68.0" width="232.0" x="318.0" y="463.0"/>
-          <y:Fill color="#00CCFF" transparent="false"/>
+          <y:Geometry height="196.0" width="351.0" x="318.0" y="335.0"/>
+          <y:Fill color="#0000FF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.5546875" modelName="custom" textColor="#000000" visible="true" width="170.259765625" x="30.8701171875" y="20.22265625">jboss/base:latest<y:LabelModel>
-              <y:SmartNodeLabelModel distance="4.0"/>
-            </y:LabelModel>
-            <y:ModelParameter>
-              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
-            </y:ModelParameter>
-          </y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.5546875" modelName="internal" modelPosition="tr" textColor="#000000" visible="true" width="116.255859375" x="230.744140625" y="4.0">3_06_HEAD</y:NodeLabel>
           <y:Shape type="roundrectangle"/>
         </y:ShapeNode>
       </data>
     </node>
     <node id="n1">
       <data key="d4"><![CDATA[https://github.com/clou2002/syrdock/blob/master/21_eap63/Dockerfile]]></data>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="111.0" width="232.0" x="318.0" y="352.0"/>
-          <y:Fill color="#00CCFF" transparent="false"/>
+          <y:Geometry height="131.0" width="277.0" x="318.0" y="400.0"/>
+          <y:Fill color="#3366FF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.5546875" modelName="custom" textColor="#000000" visible="true" width="180.796875" x="25.6015625" y="41.72265625">clou/syr:eap6jdk7<y:LabelModel>
-              <y:SmartNodeLabelModel distance="4.0"/>
-            </y:LabelModel>
-            <y:ModelParameter>
-              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
-            </y:ModelParameter>
-          </y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.5546875" modelName="internal" modelPosition="tr" textColor="#000000" visible="true" width="94.4296875" x="178.5703125" y="4.0">eap6jdk7</y:NodeLabel>
           <y:Shape type="roundrectangle"/>
         </y:ShapeNode>
       </data>
     </node>
     <node id="n2">
-      <data key="d4"><![CDATA[https://github.com/clou2002/syrdock/blob/master/22_eap63_syrius/Dockerfile]]></data>
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="89.0" width="232.0" x="318.0" y="263.0"/>
+          <y:Geometry height="68.0" width="232.0" x="318.0" y="463.0"/>
           <y:Fill color="#00CCFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.5546875" modelName="custom" textColor="#000000" visible="true" width="202.623046875" x="14.6884765625" y="30.72265625">clou/syr:3_06_HEAD<y:LabelModel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" fontFamily="Dialog" fontSize="20" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="27.5546875" modelName="custom" textColor="#000000" visible="true" width="170.259765625" x="30.8701171875" y="20.22265625">jboss/base:latest<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
