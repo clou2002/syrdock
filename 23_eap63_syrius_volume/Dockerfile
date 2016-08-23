@@ -1,10 +1,10 @@
 # LICENSE CDDL 1.0 + GPL 2.0
 #
-# Copyright (c) 2015 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2016 Adcubum AG and/or its affiliates. All rights reserved.
 # 
-# ORACLE DOCKERFILES PROJECT
+# Adcubum AG DOCKERFILES PROJECT
 # --------------------------
-# This Dockerfile extends the Oracle WebLogic image built under 1221-domain with tag name '1221-domain'
+# This Dockerfile extends the clou/syr image with tag name 'eap6jdk7'
 #
 # It will deploy any package defined in APP_PKG_FILE located in APP_PKG_LOCATION
 # into the DOMAIN_HOME with name defined in APP_NAME
@@ -28,7 +28,7 @@ MAINTAINER Stefan Saupe <stefan.saupe@adcubum.com>
 ENV UTC_PORT=42703
 ENV DB_USER=syriusdocker
 ENV DB_USERPWD=cube12
-ENV DB_JDBC_URL=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.99.1)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=orcl)(SERVER=DEDICATED)))
+ENV DB_JDBC_URL=jdbc:oracle:thin:@//192.168.1.107:1521/orcl
 
 ENV SYRMAN_LOG=/opt/jboss/syrius/logs
 ENV SYRMAN_CFG=/opt/jboss/syrius/config
@@ -39,7 +39,7 @@ RUN mkdir syrius/logs
 
 # Copy files and deploy application
 #COPY syrius/properties syrius/properties
-#COPY syrius/bin syrius/bin
+COPY syrius/bin syrius/bin
 #COPY syrius/config syrius/config
 
 #COPY syrius/config/standalone-full-syrius.xml $JBOSS_HOME/standalone/configuration/
