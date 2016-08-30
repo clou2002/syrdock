@@ -26,7 +26,7 @@ docker run -d --name syr_app -p 42705:42705 -p 42707:42707 -p 9990:9990 --env DB
 - [Version Servlet](http://localhost:42705/syrius/version)
 
 ###UTC Server
-Before starting UTC, wait for de Version Servlet to be ready.
+Before starting UTC, wait for the Version Servlet to be ready.
 ```
 ./start_utc.sh
 or
